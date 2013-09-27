@@ -213,7 +213,7 @@ NSURL *purchasesURL() {
           NSString *productID = transaction.payment.productIdentifier;
           [products addObject:productID];
         }
-        self.restoreCompletionBlock(products);
+        self.restoreCompletionBlock([NSArray arrayWithArray: products]);
     }
     self.restoreCompletionBlock = nil;
 }
