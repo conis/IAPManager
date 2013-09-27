@@ -207,7 +207,13 @@ NSURL *purchasesURL() {
 
 - (void)paymentQueueRestoreCompletedTransactionsFinished:(SKPaymentQueue *)queue {
     if (self.restoreCompletionBlock) {
-        self.restoreCompletionBlock();
+        NSMutableArray *products = [[NSMutableArray alloc] init];
+      
+        for (SKPaymentTransaction *transaction in queue.transactions) {
+          NSString *productID = transaction.payment.productIdentifier;
+          [products addObject:productID];
+        }
+        self.restoreCompletionBlock(products);
     }
     self.restoreCompletionBlock = nil;
 }
